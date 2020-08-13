@@ -1,14 +1,11 @@
 package cn.doublefloat.jdmall.project.shopcar.service.impl;
 
-import cn.doublefloat.jdmall.project.product.domain.Product;
-import cn.doublefloat.jdmall.project.shopcar.domain.ShopCar;
+import cn.doublefloat.jdmall.common.utils.StringUtils;
 import cn.doublefloat.jdmall.project.shopcar.domain.po.ShopCarPO;
 import cn.doublefloat.jdmall.project.shopcar.mapper.ShopCarMapper;
 import cn.doublefloat.jdmall.project.shopcar.service.ShopCarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,8 +20,10 @@ public class ShopCarServiceImpl implements ShopCarService {
 
     @Override
     public Integer addShopCarItem(ShopCarPO shopCarPo) {
-        if (shopCarMapper.checkShopCarItemUnique(shopCarPo.getUserId(), shopCarPo.getProductId()) > 0) {
-            return shopCarMapper.updateShopCarItem(shopCarPo);
+        ShopCarPO item = shopCarMapper.checkShopCarItemUnique(shopCarPo.getUserId(), shopCarPo.getProductId());
+        if (StringUtils.isNotNull(item)) {
+            item.setQuantity(shopCarPo.getQuantity() + item.getQuantity());
+            return shopCarMapper.updateShopCarItem(item);
         }
         return shopCarMapper.addShopCarItem(shopCarPo);
     }
@@ -40,17 +39,17 @@ public class ShopCarServiceImpl implements ShopCarService {
     }
 
     @Override
+    public Integer deleteAll(Long userId) {
+        return shopCarMapper.deleteAll(userId);
+    }
+
+    @Override
     public Integer updateShopCarItem(ShopCarPO shopCarPo) {
         return shopCarMapper.updateShopCarItem(shopCarPo);
     }
 
     @Override
-    public List<ShopCar> queryShopCarByUserId(Long userId) {
-        List<ShopCarPO> carPOList = shopCarMapper.queryShopCarByUserId(userId);
-        List<Product> res = new ArrayList();
-        for (ShopCarPO item : carPOList) {
-
-        }
-        return null;
+    public List<ShopCarPO> queryShopCarByUserId(Long userId) {
+        return shopCarMapper.queryShopCarByUserId(userId);
     }
 }

@@ -9,6 +9,9 @@
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="product_id" property="productId"/>
+        <result column="product_name" property="productName"/>
+        <result column="product_price" property="productPrice"/>
+        <result column="product_image" property="productImage"/>
         <result column="quantity" property="quantity"/>
     </resultMap>
 
@@ -28,15 +31,22 @@
         </foreach>
     </delete>
 
+    <delete id="deleteAll">
+        DELETE FROM jd_shopcar WHERE user_id = #{userId}
+    </delete>
+
     <update id="updateShopCarItem" parameterType="ShopCarPO">
-        UPDATE jd_shopcar SET quantity = quantity + #{quantity} WHERE user_id = #{userId} AND product_id = #{productId}
+        UPDATE jd_shopcar SET quantity = #{quantity} WHERE user_id = #{userId} AND product_id = #{productId}
     </update>
 
     <select id="queryShopCarByUserId" resultMap="ShopCarPoResult">
-        SELECT * FROM jd_shopcar WHERE user_id = #{userId}
+        SELECT s.id, s.user_id, s.product_id, p.product_name, p.product_price, p.product_image, s.quantity
+        FROM jd_shopcar s
+        LEFT JOIN jd_product p ON s.product_id = p.product_id
+        WHERE s.user_id = #{userId}
     </select>
 
     <select id="checkShopCarItemUnique" resultType="Integer">
-        SELECT COUNT(*) FROM jd_shopcar WHERE user_id = #{userId} AND product_id = #{productId};
+        SELECT * FROM jd_shopcar WHERE user_id = #{userId} AND product_id = #{productId};
     </select>
 </mapper>

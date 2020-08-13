@@ -38,6 +38,14 @@ public interface ShopCarService {
     public Integer deleteShopCarItems(Long userId, String[] productIds);
 
     /**
+     * 删除用户全部购物车信息
+     *
+     * @param userId 用户编号
+     * @return 结果
+     */
+    public Integer deleteAll(Long userId);
+
+    /**
      * 更新商品信息
      *
      * @param shopCarPo 商品信息
@@ -51,5 +59,5 @@ public interface ShopCarService {
      * @param userId 用户编号
      * @return 结果
      */
-    public List<ShopCar> queryShopCarByUserId(Long userId);
+    public List<ShopCarPO> queryShopCarByUserId(Long userId);
 }

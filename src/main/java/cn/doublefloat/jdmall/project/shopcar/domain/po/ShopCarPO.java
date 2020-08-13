@@ -21,10 +21,20 @@ public class ShopCarPO {
      */
     private String productId;
 
-    private String image;
+    /**
+     * 商品名
+     */
+    private String productName;
 
+    /**
+     * 商品价格
+     */
+    private Double productPrice;
 
-
+    /**
+     * 商品图片
+     */
+    private String productImage;
 
     /**
      * 商品数量
@@ -34,10 +44,13 @@ public class ShopCarPO {
     public ShopCarPO() {
     }
 
-    public ShopCarPO(Long id, Long userId, String productId, Integer quantity) {
+    public ShopCarPO(Long id, Long userId, String productId, String productName, Double productPrice, String productImage, Integer quantity) {
         this.id = id;
         this.userId = userId;
         this.productId = productId;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productImage = productImage;
         this.quantity = quantity;
     }
 
@@ -65,11 +78,48 @@ public class ShopCarPO {
         this.productId = productId;
     }
 
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public Double getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(Double productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public String getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
+    }
+
     public Integer getQuantity() {
         return quantity;
     }
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "ShopCarPO{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", productId='" + productId + '\'' +
+                ", productName='" + productName + '\'' +
+                ", productPrice=" + productPrice +
+                ", productImage='" + productImage + '\'' +
+                ", quantity=" + quantity +
+                '}';
     }
 }

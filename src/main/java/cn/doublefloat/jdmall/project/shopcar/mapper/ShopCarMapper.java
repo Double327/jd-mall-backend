@@ -40,6 +40,14 @@ public interface ShopCarMapper {
     public Integer deleteShopCarItems(@Param("userId") Long userId, @Param("productIds") String[] productIds);
 
     /**
+     * 删除用户全部购物车信息
+     *
+     * @param userId 用户ID
+     * @return 结果
+     */
+    public Integer deleteAll(Long userId);
+
+    /**
      * 更新商品信息
      *
      * @param shopCarPo 商品信息
@@ -57,9 +65,10 @@ public interface ShopCarMapper {
 
     /**
      * 检查购物车商品数量
-     * @param userId 用户编号
+     *
+     * @param userId    用户编号
      * @param productId 商品编号
      * @return 结果
      */
-    public Integer checkShopCarItemUnique(@Param("userId") Long userId, @Param("productId") String productId);
+    public ShopCarPO checkShopCarItemUnique(@Param("userId") Long userId, @Param("productId") String productId);
 }
