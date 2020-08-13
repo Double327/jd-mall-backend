@@ -5,6 +5,7 @@
  
 <mapper namespace="cn.doublefloat.jdmall.project.user.mapper.UserMapper">
     <resultMap id="UserResult" type="User">
+        <result column="user_id" property="userId"/>
         <result column="username" property="username"/>
         <result column="nickname" property="nickname"/>
         <result column="phonenum" property="phonenum"/>

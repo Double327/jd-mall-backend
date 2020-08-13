@@ -34,4 +34,10 @@ public class TestUserMapper {
             System.out.println("添加失败!");
         }
     }
+
+    @Test
+    public void testQueryUserByUsername() {
+        User aDouble = userMapper.queryUserByUsername("Double");
+        System.out.println(aDouble);
+    }
 }

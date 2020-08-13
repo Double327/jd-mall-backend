@@ -1,7 +1,6 @@
-package cn.doublefloat.jdmall.address.mapper;
+package cn.doublefloat.jdmall.project.address.mapper;
 
 import cn.doublefloat.jdmall.project.address.domain.Address;
-import cn.doublefloat.jdmall.project.address.mapper.AddressMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

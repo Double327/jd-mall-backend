@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="cn.doublefloat.jdmall.project.shopcar.mapper.ShopCarMapper">
+
+    <resultMap id="ShopCarPoResult" type="ShopCarPO">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="product_id" property="productId"/>
+        <result column="quantity" property="quantity"/>
+    </resultMap>
+
+    <insert id="addShopCarItem" parameterType="ShopCarPO">
+        INSERT INTO jd_shopcar (user_id, product_id, quantity)
+        VALUES (#{userId}, #{productId}, #{quantity});
+    </insert>
+
+    <delete id="deleteShopCarItem">
+        DELETE FROM jd_shopcar WHERE user_id = #{userId} AND product_id = #{productId}
+    </delete>
+
+    <delete id="deleteShopCarItems">
+        DELETE FROM jd_shopcar WHERE user_id = #{userId} AND product_id in
+        <foreach collection="productIds" open="(" close=")" separator="," item="product_id">
+            #{product_id}
+        </foreach>
+    </delete>
+
+    <update id="updateShopCarItem" parameterType="ShopCarPO">
+        UPDATE jd_shopcar SET quantity = quantity + #{quantity} WHERE user_id = #{userId} AND product_id = #{productId}
+    </update>
+
+    <select id="queryShopCarByUserId" resultMap="ShopCarPoResult">
+        SELECT * FROM jd_shopcar WHERE user_id = #{userId}
+    </select>
+
+    <select id="checkShopCarItemUnique" resultType="Integer">
+        SELECT COUNT(*) FROM jd_shopcar WHERE user_id = #{userId} AND product_id = #{productId};
+    </select>
+</mapper>
